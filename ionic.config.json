@@ -1,0 +1,8 @@
+{
+  "name": "nuape",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "64f10929"
+}
