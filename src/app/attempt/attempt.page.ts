@@ -29,7 +29,6 @@ export class AttemptPage implements OnInit {
     if (this.userService.api_token_value) {
       this.userService.getMe().then(
         (response) => {
-          console.log(response)
           if (response) {
             this.userService.setUser(response.user, (response: boolean) => {
               if (this.urlOld == '' || this.urlOld == null) {

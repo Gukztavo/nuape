@@ -1,40 +1,38 @@
 ion-content {
-    --background: unset;
-    background: linear-gradient(
-      -45deg,
-      var(--ion-color-primary),
-      var(--ion-color-secondary),
-      var(--ion-color-tertiary)
-    );
-    background-size: 400% 400%;
-    animation: gradient 5s ease infinite;
-  }
-  
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-  
-    50% {
-      background-position: 100% 50%;
-    }
-  
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  
-  .center {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .block-spinner {
-    text-align: center;
-    background: var(--ion-color-light);
-    color: var(--ion-color-white);
-    padding: 20px;
-    border-radius: 10px;
-  }
+  --background: unset;
+  background: linear-gradient(
+    -45deg,
+    #ffbe00,
+    #b5b02b,
+    #efefef
+  );
+}
+
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.block-spinner {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ion-color-dark);
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.block-spinner p {
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+ion-spinner {
+  margin-bottom: 10px;
+  --spinner-color: var(--ion-color-primary);
+}

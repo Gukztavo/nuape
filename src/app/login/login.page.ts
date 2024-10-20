@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../service/auth-service.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../service/helper.service';
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -20,13 +21,16 @@ export class LoginPage implements OnInit {
 
 
   constructor(
+    private menuController: MenuController,
     private authService: AuthServiceService,
     private router: Router,
     private helperService: HelperService,
   ) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menuController.enable(false);
+  }
 
   login() {
     if (!this.credentials.email || this.credentials.email == '') {
