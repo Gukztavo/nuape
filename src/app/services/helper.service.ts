@@ -6,7 +6,7 @@ import {
   PopoverController,
   ToastController,
 } from '@ionic/angular';
-import { ConfirmComponent } from '../confirm/confirm.component';
+import { ConfirmComponent } from '../components/confirm/confirm.component';
 
 @Injectable({
   providedIn: 'root',
@@ -62,8 +62,8 @@ export class HelperService {
       if (this.router.url == '/login')
         return this.toast('Usuário e/ou senha inválidos.', 'danger');
       return this.toast('Não autorizado.', 'danger');
-    } else if (error && error.error && error.error.mensagem) {
-      return this.toast(error.error.mensagem, 'warning', 5000);
+    } else if (error && error.error && error.error.message) {
+      return this.toast(error.error.message, 'warning', 5000);
     } else {
       return this.toast('Houve um erro ao processar sua requisição.', 'danger');
     }

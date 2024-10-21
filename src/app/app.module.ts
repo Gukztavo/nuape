@@ -6,7 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http'; // Importe o HttpClientModule
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ConfirmComponent } from './confirm/confirm.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 
 @NgModule({
   declarations: [AppComponent,ConfirmComponent],

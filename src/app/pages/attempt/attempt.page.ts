@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { AuthServiceService } from '../service/auth-service.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-attempt',

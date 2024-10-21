@@ -1,32 +1,28 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthServiceService } from '../service/auth-service.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
-import { HelperService } from '../service/helper.service';
+import { HelperService } from '../../services/helper.service';
 import { MenuController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-
 export class LoginPage implements OnInit {
   credentials = {
     email: '',
     password: '',
   };
 
-
   constructor(
     private menuController: MenuController,
     private authService: AuthServiceService,
     private router: Router,
-    private helperService: HelperService,
-  ) {
-  }
+    private helperService: HelperService
+  ) {}
 
   ngOnInit() {
     this.menuController.enable(false);
@@ -34,11 +30,11 @@ export class LoginPage implements OnInit {
 
   login() {
     if (!this.credentials.email || this.credentials.email == '') {
-      this.helperService.toast('E-mail é obrigatório', 'warning');
+      return this.helperService.toast('E-mail é obrigatório', 'warning');
     }
 
     if (!this.credentials.password || this.credentials.password == '') {
-      this.helperService.toast('Senha é obrigatório', 'warning');
+      return this.helperService.toast('Senha é obrigatório', 'warning');
     }
 
     this.helperService.loading('Logando...');
