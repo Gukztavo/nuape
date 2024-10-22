@@ -4,14 +4,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../../services/helper.service';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, ViewWillEnter {
   credentials = {
     email: '',
     password: '',
@@ -25,6 +25,10 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.menuController.enable(false);
+  }
+
+  ionViewWillEnter() {
     this.menuController.enable(false);
   }
 

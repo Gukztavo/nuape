@@ -18,7 +18,7 @@ export class User {
   }
 
   get is_admin() {
-    return this.role === 'Administrador';
+    return this.role === 'Admin';
   }
 
   get http_data() {
