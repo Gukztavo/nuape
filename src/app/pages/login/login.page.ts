@@ -4,18 +4,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../../services/helper.service';
-import { MenuController, ViewWillEnter } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit, ViewWillEnter {
+export class LoginPage implements OnInit {
   credentials = {
     email: '',
     password: '',
   };
+
+  ionViewWillEnter() {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
 
   constructor(
     private menuController: MenuController,
@@ -25,10 +30,6 @@ export class LoginPage implements OnInit, ViewWillEnter {
   ) {}
 
   ngOnInit() {
-    this.menuController.enable(false);
-  }
-
-  ionViewWillEnter() {
     this.menuController.enable(false);
   }
 
