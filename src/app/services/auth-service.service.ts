@@ -3,6 +3,8 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { BaseService } from './base.service';
 import { Router } from '@angular/router';
 import { User } from '../model/user';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +35,31 @@ export class AuthServiceService extends BaseService {
     this.router.navigate(['/login']);
   }
 
+
+
+  cadastrar(data: any): Promise<any> {
+    const token = localStorage.getItem('authToken'); //pega o mano token
+    // define headers e o mano token
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` // Adiciona o token 
+    });
+  
+    console.log('Enviando dados para o endpoint:', data);
+  
+    return firstValueFrom(
+      this.http.post(`${this.api_url}/professor`, data, { headers })
+    ).then(response => {
+      console.log('Resposta recebida:', response);
+      return response;
+    }).catch(error => {
+      console.error('Erro ao cadastrar:', error);
+      return Promise.reject(error);
+    });
+  }
+  
+
+  
   getMe(): Promise<any> {
     return firstValueFrom(this.http.get(this.api_url + '/me', this.get_tokens));
   }

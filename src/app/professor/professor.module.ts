@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ProfessorPageRoutingModule } from './professor-routing.module';
 
 import { ProfessorPage } from './professor.page';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfessorPageRoutingModule
+    ProfessorPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [ProfessorPage]
 })
