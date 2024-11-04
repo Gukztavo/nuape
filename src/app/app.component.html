@@ -54,7 +54,7 @@
               ></ion-icon>
               <ion-label>Sair</ion-label>
             </ion-item>
-            <ion-item button routerLink="/professor">
+            <ion-item *ngIf="isAdmin()" button routerLink="/professor">
               <ion-icon aria-hidden="true"
               slot="start"
               name="person"></ion-icon>

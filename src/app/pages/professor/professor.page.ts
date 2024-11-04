@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthServiceService } from '../services/auth-service.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
-import { HelperService } from '../services/helper.service';
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-professor',
@@ -33,18 +33,16 @@ export class ProfessorPage implements OnInit {
       this.helperService.toast('Preencha todos os campos corretamente', 'warning');
       return;
     }
-  
+
     this.helperService.loading('Cadastrando...');
-  
+
     try {
       const response = await this.authService.cadastrar(this.professorForm.value);
-  
+
       this.helperService.loading_dismiss();
-  
-      // Verifica se a resposta tem 'error: false', indicando sucesso
+
       if (response.error === false) {
         this.helperService.toast(response.message || 'Professor cadastrado com sucesso!', 'success');
-        // Redireciona para a página inicial
       } else {
         this.helperService.toast(response.message || 'Ocorreu um erro ao cadastrar o professor', 'danger');
       }
@@ -54,5 +52,5 @@ export class ProfessorPage implements OnInit {
       console.error('Erro ao cadastrar professor:', error);
     }
   }
-  
+
 }

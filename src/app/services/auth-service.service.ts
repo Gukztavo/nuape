@@ -14,6 +14,7 @@ export class AuthServiceService extends BaseService {
   user: User = null;
   user_logged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public user_logged$ = this.user_logged.asObservable();
+  private userRole: string;
 
   constructor(injector: Injector, router: Router) {
     super(injector);
@@ -35,18 +36,16 @@ export class AuthServiceService extends BaseService {
     this.router.navigate(['/login']);
   }
 
-
-
   cadastrar(data: any): Promise<any> {
     const token = localStorage.getItem('authToken'); //pega o mano token
     // define headers e o mano token
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}` // Adiciona o token 
+      'Authorization': `Bearer ${token}` // Adiciona o token
     });
-  
+
     console.log('Enviando dados para o endpoint:', data);
-  
+
     return firstValueFrom(
       this.http.post(`${this.api_url}/professor`, data, { headers })
     ).then(response => {
@@ -57,9 +56,7 @@ export class AuthServiceService extends BaseService {
       return Promise.reject(error);
     });
   }
-  
 
-  
   getMe(): Promise<any> {
     return firstValueFrom(this.http.get(this.api_url + '/me', this.get_tokens));
   }
@@ -68,13 +65,16 @@ export class AuthServiceService extends BaseService {
     if (data) {
       console.log(data);
       this.user = new User(data);
-
+      this.userRole =data.role;
       this.user_logged.next(true);
     }
 
     if (callback) {
       callback(true);
     }
+  }
+  isAdmin(): boolean {
+    return this.userRole === 'Admin';
   }
 
   unsetUser(callback: any = null) {

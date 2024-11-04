@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthServiceService } from './services/auth-service.service';
 import { AdminItems, TeacherItems } from './side-menu';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -40,5 +41,13 @@ export class AppComponent implements OnDestroy {
   ngOnDestroy() {
     this.ngUnsubscriber.next();
     this.ngUnsubscriber.complete();
+  }
+  configurarMenu() {
+    if (this.userService.isAdmin()) {
+      this.appPages.push({ title: 'Professor', url: '/professor', icon: 'school-outline' });
+    }
+  }
+  isAdmin(): boolean {
+    return this.userService.isAdmin();
   }
 }
