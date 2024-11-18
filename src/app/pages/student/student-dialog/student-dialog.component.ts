@@ -17,7 +17,7 @@ export class StudentDialogComponent implements OnInit {
   studentForm: FormGroup;
 
   selectedFile: File | null = null;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private studentService: StudentService,
@@ -49,11 +49,11 @@ export class StudentDialogComponent implements OnInit {
 
     this.helperService.loading('Cadastrando...');
 
-    if (this.student.id) {
+    if (this.student?.id) {
       await this.uploadFile();
     }
 
-    if (this.student.id) {
+    if (this.student?.id) {
       this.studentService.update(this.studentForm.value).subscribe({
         next: response => {
           this.helperService.loading_dismiss();
