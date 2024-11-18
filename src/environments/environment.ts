@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  api_url : 'https://2e52-2804-d55-4f5f-ba00-e53b-708a-82c1-d34.ngrok-free.app/api',
+  api_url : 'https://c960-2804-d55-4f5f-ba00-950d-7b41-3ada-27e7.ngrok-free.app/api',
 
   api_token : 'nuapi-Token',
   production: false

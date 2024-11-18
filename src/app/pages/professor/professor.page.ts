@@ -21,12 +21,12 @@ export class ProfessorPage implements OnInit {
     this.professorForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      cpf: ['', Validators.required],
-      specialization: ['', Validators.required],
+      cpf: ['00000000000'],
+      specialization: ['000'],
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async cadastrarProfessor() {
     if (this.professorForm.invalid) {

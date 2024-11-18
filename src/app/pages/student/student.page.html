@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Alunos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="auto">
+        <ion-button color="primary" (click)="openStudentModal()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+          Novo aluno
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item *ngFor="let student of students">
+      <ion-label>
+        <h2>{{ student.name }}</h2>
+        <p>RA: {{ student.ra }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <!-- Edit Button -->
+        <ion-button color="primary" (click)="openStudentModal(student)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <!-- Delete Button -->
+        <ion-button color="danger" (click)="deleteStudent(student.id)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>
