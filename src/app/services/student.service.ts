@@ -36,4 +36,8 @@ export class StudentService extends BaseService {
     insertAlunoPdf(data: FormData): Observable<any> {
         return this.http.post(`${this.api_url}/store-pdf`, data, { headers: this.get_tokens.headers });
     }
+
+    getAlunoPdf(studentId: number) {
+        return this.http.get(`${this.api_url}/download/${studentId}`, { headers: this.get_tokens.headers });
+    }
 }  

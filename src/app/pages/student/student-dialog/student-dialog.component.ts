@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { FileModel } from 'src/app/model/file.model';
 import { StudentModel } from 'src/app/model/student.model';
 import { HelperService } from 'src/app/services/helper.service';
 import { StudentService } from 'src/app/services/student.service';
@@ -29,6 +28,7 @@ export class StudentDialogComponent implements OnInit {
 
   ngOnInit() {
     if (this.student) {
+      this.getStudentPdf();
       this.studentForm = this.formBuilder.group({
         id: [this.student.id],
         name: [this.student.name, Validators.required],
@@ -41,6 +41,13 @@ export class StudentDialogComponent implements OnInit {
         ra: ['', Validators.required]
       });
     }
+  }
+
+  getStudentPdf() {
+    this.studentService.getAlunoPdf(this.student.id).subscribe({
+      next: response => console.log(response),
+      error: err => this.helperService.toast(err.error.message, 'warning')
+    });
   }
 
   async insertStudent() {
@@ -100,7 +107,7 @@ export class StudentDialogComponent implements OnInit {
 
     this.studentService.insertAlunoPdf(formData).subscribe({
       next: res => this.helperService.toast("Arquivo salvo com sucesso", 'success'),
-      error: err => this.helperService.toast('Erro ao salvar arquivo: ' + err.message, 'danger')
+      error: err => this.helperService.toast('Erro ao salvar arquivo: ' + err.error.message, 'danger')
     });
   }
 

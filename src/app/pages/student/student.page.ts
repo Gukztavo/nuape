@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { HelperService } from '../../services/helper.service';
 import { StudentService } from 'src/app/services/student.service';
 import { StudentModel } from 'src/app/model/student.model';
@@ -34,7 +33,7 @@ export class StudentPage implements OnInit {
     this.studentService.delete(studentId).subscribe({
       next: res => {
         this.helperService.toast(res.message, 'success');
-        this.students = this.students.filter((s) => s.id !== studentId);
+        this.students = this.students.filter(s => s.id !== studentId);
       },
       error: () => this.helperService.toast("Erro ao excluir aluno, tente novamente", 'danger')
     });
