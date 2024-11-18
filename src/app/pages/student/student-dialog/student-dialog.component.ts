@@ -44,6 +44,7 @@ export class StudentDialogComponent implements OnInit {
   }
 
   getStudentPdf() {
+    //TODO Mostrar o PDF
     this.studentService.getAlunoPdf(this.student.id).subscribe({
       next: response => console.log(response),
       error: err => this.helperService.toast(err.error.message, 'warning')
@@ -102,7 +103,6 @@ export class StudentDialogComponent implements OnInit {
     const formData = new FormData();
     formData.append('file_content', this.selectedFile, this.selectedFile.name);
     formData.append('file_name', this.selectedFile.name);
-    formData.append('user_id', '1');
     formData.append('student_id', this.student.id.toString());
 
     this.studentService.insertAlunoPdf(formData).subscribe({
