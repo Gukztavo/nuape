@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastrar Aluno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="studentForm" (ngSubmit)="insertStudent()">
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input formControlName="name" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">RA</ion-label>
+      <ion-input formControlName="ra" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="studentForm.invalid">
+      Cadastrar
+    </ion-button>
+  </form>
+</ion-content>
