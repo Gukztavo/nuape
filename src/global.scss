@@ -37,3 +37,10 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 @import "./theme/styles.scss";
+
+.pdf-modal {
+    --width: 70vw;
+    --height: 90vh;
+    --max-width: none;
+    --max-height: none;
+  }
