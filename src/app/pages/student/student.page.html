@@ -22,6 +22,10 @@
         <p>RA: {{ student.ra }}</p>
       </ion-label>
       <ion-buttons slot="end">
+        <!-- PEI PDF Button -->
+        <ion-button color="secondary" (click)="getStudentPdf(student.id)">
+          <ion-icon slot="icon-only" name="document-attach-outline"></ion-icon>
+        </ion-button>
         <!-- Edit Button -->
         <ion-button color="primary" (click)="openStudentModal(student)">
           <ion-icon slot="icon-only" name="create-outline"></ion-icon>

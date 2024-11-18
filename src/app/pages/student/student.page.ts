@@ -4,6 +4,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { StudentModel } from 'src/app/model/student.model';
 import { ModalController } from '@ionic/angular';
 import { StudentDialogComponent } from './student-dialog/student-dialog.component';
+import { StudentPdfComponent } from './student-pdf/student-pdf.component';
 
 @Component({
   selector: 'app-student',
@@ -11,7 +12,10 @@ import { StudentDialogComponent } from './student-dialog/student-dialog.componen
   styleUrls: ['./student.page.scss'],
 })
 export class StudentPage implements OnInit {
+
   students: StudentModel[] = [];
+
+  pdfUrl: string | undefined;
 
   constructor(
     private studentService: StudentService,
@@ -51,6 +55,28 @@ export class StudentPage implements OnInit {
       if (result.data) {
         this.getAllStudents();
       }
+    });
+
+    return await modal.present();
+  }
+
+  getStudentPdf(studentId: number) {
+    this.studentService.getAlunoPdf(studentId).subscribe({
+      next: async response => {
+        const pdfUrl = URL.createObjectURL(response);
+        this.openPdfModal(pdfUrl);
+      },
+      error: err => this.helperService.toast(err.error.message, 'warning')
+    });
+  }
+
+  async openPdfModal(pdfUrl: string) {
+    const modal = await this.modalController.create({
+      component: StudentPdfComponent,
+      componentProps: {
+        pdfUrl: pdfUrl, // Pass the PDF URL as an input to the modal
+      },
+      cssClass: 'pdf-modal'
     });
 
     return await modal.present();

@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StudentPageRoutingModule } from './student-routing.module';
 import { StudentPage } from './student.page';
 import { StudentDialogComponent } from './student-dialog/student-dialog.component';
+import { StudentPdfComponent } from './student-pdf/student-pdf.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { StudentDialogComponent } from './student-dialog/student-dialog.componen
     StudentPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [StudentPage, StudentDialogComponent]
+  declarations: [StudentPage, StudentDialogComponent, StudentPdfComponent]
 })
 export class StudentPageModule {}

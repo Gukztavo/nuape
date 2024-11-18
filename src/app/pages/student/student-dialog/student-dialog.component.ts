@@ -17,8 +17,7 @@ export class StudentDialogComponent implements OnInit {
   studentForm: FormGroup;
 
   selectedFile: File | null = null;
-  base64File: string | null = null;
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private studentService: StudentService,
@@ -28,7 +27,6 @@ export class StudentDialogComponent implements OnInit {
 
   ngOnInit() {
     if (this.student) {
-      this.getStudentPdf();
       this.studentForm = this.formBuilder.group({
         id: [this.student.id],
         name: [this.student.name, Validators.required],
@@ -41,14 +39,6 @@ export class StudentDialogComponent implements OnInit {
         ra: ['', Validators.required]
       });
     }
-  }
-
-  getStudentPdf() {
-    //TODO Mostrar o PDF
-    this.studentService.getAlunoPdf(this.student.id).subscribe({
-      next: response => console.log(response),
-      error: err => this.helperService.toast(err.error.message, 'warning')
-    });
   }
 
   async insertStudent() {
