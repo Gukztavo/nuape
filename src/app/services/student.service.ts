@@ -3,6 +3,8 @@ import { BaseService } from "./base.service";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { HttpHeaders } from "@angular/common/http";
+import { FileModel } from "../model/file.model";
+import { StudentModel } from "../model/student.model";
 
 @Injectable({
     providedIn: 'root',
@@ -15,16 +17,23 @@ export class StudentService extends BaseService {
         this.router = router;
     }
 
-    insert(data: any): Observable<any> {
-        return this.http.post(`${this.api_url}/student`, data, { headers: this.getHttpHeaders() });
+    getAll(): Observable<any> {
+        return this.http.get(`${this.api_url}/student`, { headers: this.get_tokens.headers });
     }
 
-    getHttpHeaders(): HttpHeaders {
-        const token = localStorage.getItem('authToken');
+    insert(data: any): Observable<any> {
+        return this.http.post(`${this.api_url}/student`, data, { headers: this.get_tokens.headers });
+    }
 
-        return new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        });
+    update(data: StudentModel): Observable<any> {
+        return this.http.put(`${this.api_url}/student`, { headers: this.get_tokens.headers });
+    }
+
+    delete(studentId: number): Observable<any> {
+        return this.http.delete(`${this.api_url}/student/${studentId}`, { headers: this.get_tokens.headers });
+    }
+
+    insertAlunoPdf(data: FileModel): Observable<any> {
+        return this.http.post(`${this.api_url}/store-pdf`, data, { headers: this.get_tokens.headers });
     }
 }  

@@ -1,23 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Cadastrar Aluno</ion-title>
+    <ion-title>Alunos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="studentForm" (ngSubmit)="insertStudent()">
-    <ion-item>
-      <ion-label position="stacked">Nome</ion-label>
-      <ion-input formControlName="name" required></ion-input>
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="auto">
+        <ion-button color="primary" (click)="openStudentModal()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+          Novo aluno
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item *ngFor="let student of students">
+      <ion-label>
+        <h2>{{ student.name }}</h2>
+        <p>RA: {{ student.ra }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <!-- Edit Button -->
+        <ion-button color="primary" (click)="openStudentModal(student)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <!-- Delete Button -->
+        <ion-button color="danger" (click)="deleteStudent(student.id)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">RA</ion-label>
-      <ion-input formControlName="ra" required></ion-input>
-    </ion-item>
-
-    <ion-button expand="block" type="submit" [disabled]="studentForm.invalid">
-      Cadastrar
-    </ion-button>
-  </form>
+  </ion-list>
 </ion-content>

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { HelperService } from '../../services/helper.service';
 import { StudentService } from 'src/app/services/student.service';
+import { StudentModel } from 'src/app/model/student.model';
+import { ModalController } from '@ionic/angular';
+import { StudentDialogComponent } from './student-dialog/student-dialog.component';
 
 @Component({
   selector: 'app-student',
@@ -9,39 +12,48 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./student.page.scss'],
 })
 export class StudentPage implements OnInit {
-  studentForm: FormGroup;
+  students: StudentModel[] = [];
 
   constructor(
-    private formBuilder: FormBuilder,
     private studentService: StudentService,
+    private modalController: ModalController,
     private helperService: HelperService
-  ) {
-    this.studentForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      ra: ['', Validators.required]
+  ) { }
+
+  ngOnInit() {
+    this.getAllStudents();
+  }
+
+  getAllStudents(): void {
+    this.studentService.getAll().subscribe({
+      next: res => this.students = res
     });
   }
 
-  ngOnInit() { }
-
-  insertStudent() {
-    if (this.studentForm.invalid) {
-      this.helperService.toast('Preencha todos os campos corretamente', 'warning');
-      return;
-    }
-
-    this.helperService.loading('Cadastrando...');
-
-    this.studentService.insert(this.studentForm.value).subscribe({
-      next: response => {
-        this.helperService.loading_dismiss();
-        this.helperService.toast(response.message, 'success');
+  deleteStudent(studentId: number) {
+    this.studentService.delete(studentId).subscribe({
+      next: res => {
+        this.helperService.toast(res.message, 'success');
+        this.students = this.students.filter((s) => s.id !== studentId);
       },
-      error: err => {
-        this.helperService.loading_dismiss();
-        this.helperService.toast('Erro ao cadastrar aluno, verifique os dados informados', 'danger');
+      error: () => this.helperService.toast("Erro ao excluir aluno, tente novamente", 'danger')
+    });
+  }
+
+  async openStudentModal(student?: StudentModel) {
+    const modal = await this.modalController.create({
+      component: StudentDialogComponent,
+      componentProps: {
+        student: student || null
       }
     });
-  }
 
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        this.getAllStudents();
+      }
+    });
+
+    return await modal.present();
+  }
 }
