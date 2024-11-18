@@ -16,6 +16,9 @@ export class StudentDialogComponent implements OnInit {
 
   studentForm: FormGroup;
 
+  selectedFile: File | null = null;
+  base64File: string | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private studentService: StudentService,
@@ -25,6 +28,7 @@ export class StudentDialogComponent implements OnInit {
 
   ngOnInit() {
     if (this.student) {
+      this.getStudentPdf();
       this.studentForm = this.formBuilder.group({
         id: [this.student.id],
         name: [this.student.name, Validators.required],
@@ -39,7 +43,14 @@ export class StudentDialogComponent implements OnInit {
     }
   }
 
-  insertStudent() {
+  getStudentPdf() {
+    this.studentService.getAlunoPdf(this.student.id).subscribe({
+      next: response => console.log(response),
+      error: err => this.helperService.toast(err.error.message, 'warning')
+    });
+  }
+
+  async insertStudent() {
     if (this.studentForm.invalid) {
       this.helperService.toast('Preencha todos os campos corretamente', 'warning');
       return;
@@ -47,16 +58,56 @@ export class StudentDialogComponent implements OnInit {
 
     this.helperService.loading('Cadastrando...');
 
-    this.studentService.insert(this.studentForm.value).subscribe({
-      next: response => {
-        this.helperService.loading_dismiss();
-        this.helperService.toast(response.message, 'success');
-        this.modalController.dismiss(this.studentForm.value);
-      },
-      error: err => {
-        this.helperService.loading_dismiss();
-        this.helperService.toast('Erro ao cadastrar aluno, verifique os dados informados', 'danger');
-      }
+    if (this.student.id) {
+      await this.uploadFile();
+    }
+
+    if (this.student.id) {
+      this.studentService.update(this.studentForm.value).subscribe({
+        next: response => {
+          this.helperService.loading_dismiss();
+          this.helperService.toast(response.message, 'success');
+          this.modalController.dismiss(this.studentForm.value);
+        },
+        error: err => {
+          this.helperService.loading_dismiss();
+          this.helperService.toast('Erro ao atualizar aluno, verifique os dados informados', 'danger');
+        }
+      });
+    } else {
+      this.studentService.insert(this.studentForm.value).subscribe({
+        next: response => {
+          this.helperService.loading_dismiss();
+          this.helperService.toast(response.message, 'success');
+          this.modalController.dismiss(this.studentForm.value);
+        },
+        error: err => {
+          this.helperService.loading_dismiss();
+          this.helperService.toast('Erro ao cadastrar aluno, verifique os dados informados', 'danger');
+        }
+      });
+    }
+  }
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+  async uploadFile() {
+    if (!this.selectedFile) {
+      this.helperService.toast('Selecione um arquivo primeiro', 'warning');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file_content', this.selectedFile, this.selectedFile.name);
+    formData.append('file_name', this.selectedFile.name);
+    formData.append('user_id', '1');
+    formData.append('student_id', this.student.id.toString());
+
+    this.studentService.insertAlunoPdf(formData).subscribe({
+      next: res => this.helperService.toast("Arquivo salvo com sucesso", 'success'),
+      error: err => this.helperService.toast('Erro ao salvar arquivo: ' + err.error.message, 'danger')
     });
   }
 

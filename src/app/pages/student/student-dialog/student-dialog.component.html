@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>{{ student ? 'Editar aluno' : 'Cadastrar aluno' }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">
+      <ion-button color="secondary" (click)="closeModal()">
         <ion-icon name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,8 +17,17 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">RA</ion-label>
+      <ion-label position="stacked">R.A.</ion-label>
       <ion-input formControlName="ra" required></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="student">
+      <ion-label>Adicionar PDF</ion-label>
+      <ion-button expand="block" (click)="fileInput.click()">Selecione o PEI</ion-button>
+      <input #fileInput type="file" accept="application/pdf" (change)="onFileSelected($event)" hidden />
+    </ion-item>
+    <ion-item *ngIf="selectedFile">
+      <ion-label>{{ selectedFile.name }}</ion-label>
     </ion-item>
 
     <ion-button expand="block" type="submit" [disabled]="studentForm.invalid">

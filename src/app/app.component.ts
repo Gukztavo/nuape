@@ -42,11 +42,13 @@ export class AppComponent implements OnDestroy {
     this.ngUnsubscriber.next();
     this.ngUnsubscriber.complete();
   }
+  
   configurarMenu() {
     if (this.userService.isAdmin()) {
       this.appPages.push({ title: 'Professor', url: '/professor', icon: 'school-outline' });
     }
   }
+
   isAdmin(): boolean {
     return this.userService.isAdmin();
   }
