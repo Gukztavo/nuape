@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthServiceService } from '../../services/auth-service.service';
+import { AuthService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../../services/helper.service';
 import { MenuController } from '@ionic/angular';
@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private menuController: MenuController,
-    private authService: AuthServiceService,
+    private authService: AuthService,
     private router: Router,
     private helperService: HelperService
   ) {}

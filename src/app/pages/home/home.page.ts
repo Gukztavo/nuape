@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from '../../services/auth-service.service';
+import { AuthService } from '../../services/auth-service.service';
 import { User } from '../../model/user';
 import { MenuController } from '@ionic/angular';
 
@@ -13,7 +13,7 @@ export class HomePage implements OnInit {
 
   user : User = null;
   
-  constructor(private userService : AuthServiceService,
+  constructor(private userService : AuthService,
     private menuController: MenuController,
   ) {
     this.user = this.userService.user;

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ discipline ? 'Editar aluno' : 'Cadastrar aluno' }}</ion-title>
+    <ion-title>{{ discipline ? 'Editar disciplina' : 'Cadastrar disciplina' }}</ion-title>
     <ion-buttons slot="end">
       <ion-button color="secondary" (click)="closeModal()">
         <ion-icon name="close-outline"></ion-icon>
@@ -11,14 +11,38 @@
 
 <ion-content>
   <form [formGroup]="disciplineForm" (ngSubmit)="insertDiscipline()">
-    <ion-item>
+    <ion-item lines="none">
       <ion-label position="stacked">Nome</ion-label>
       <ion-input formControlName="name" required></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">R.A.</ion-label>
-      <ion-input formControlName="ra" required></ion-input>
+    <ion-item lines="none">
+      <ion-label position="stacked">Departamento</ion-label>
+      <ion-input formControlName="department" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Ativa</ion-label>
+      <ion-toggle formControlName="is_active"></ion-toggle>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>Professor(a)</ion-label>
+      <ion-select placeholder="Selecione o professor(a)" [value]="professors" (ionChange)="onProfessorChange($event)">
+        <ion-select-option *ngFor="let professor of professors" [value]="professor.id">
+          {{ professor.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>Alunos</ion-label>
+      <ion-select placeholder="Selecione os alunos da disciplina" [value]="selectedStudents"
+        (ionChange)="onStudentsChange($event)" multiple="true">
+        <ion-select-option *ngFor="let student of students" [value]="student">
+          {{ student.name }}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-button expand="block" type="submit" [disabled]="disciplineForm.invalid">

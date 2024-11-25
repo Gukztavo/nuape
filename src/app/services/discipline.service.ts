@@ -8,6 +8,7 @@ import { DisciplineModel } from "../model/discipline.model";
     providedIn: 'root',
 })
 export class DisciplineService extends BaseService {
+    
     router: Router;
 
     constructor(injector: Injector, router: Router) {

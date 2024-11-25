@@ -36,7 +36,7 @@ export class DisciplinePage implements OnInit {
     this.disciplineService.delete(disciplineId).subscribe({
       next: res => {
         this.helperService.toast(res.message, 'success');
-        // this.disciplines = this.disciplines.filter(s => s.id !== disciplineId);
+        this.disciplines = this.disciplines.filter(s => s.id !== disciplineId);
       },
       error: () => this.helperService.toast("Erro ao excluir aluno, tente novamente", 'danger')
     });

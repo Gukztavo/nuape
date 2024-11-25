@@ -4,6 +4,9 @@ import { ModalController } from '@ionic/angular';
 import { DisciplineModel } from 'src/app/model/discipline.model';
 import { HelperService } from 'src/app/services/helper.service';
 import { DisciplineService } from 'src/app/services/discipline.service';
+import { StudentService } from 'src/app/services/student.service';
+import { StudentModel } from 'src/app/model/student.model';
+import { ProfessorService } from 'src/app/services/professor.service';
 
 @Component({
   selector: 'app-discipline-dialog',
@@ -14,30 +17,70 @@ export class DisciplineDialogComponent implements OnInit {
 
   @Input() discipline: DisciplineModel;
 
-  disciplineForm: FormGroup;
+  students: StudentModel[] = [];
+  selectedStudents: StudentModel[] = [];
 
-  selectedFile: File | null = null;
+  professors: any[] = [];
+  selectedProfessorId: number;
+
+  disciplineForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private disciplineService: DisciplineService,
     private helperService: HelperService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private studentsServuce: StudentService,
+    private professorService: ProfessorService
   ) { }
 
   ngOnInit() {
+    this.getStudents();
+    this.getProfessors();
+
     if (this.discipline) {
       this.disciplineForm = this.formBuilder.group({
+        id: [this.discipline.teacher_id],
         name: [this.discipline.name, Validators.required],
-        // ra: [this.discipline.ra, Validators.required]
+        department: [this.discipline.department, Validators.required],
+        is_active: [this.discipline.is_active]
       });
+
+      this.selectedProfessorId = this.discipline.teacher_id;
+      this.selectedStudents = this.discipline.students;
+
     } else {
       this.disciplineForm = this.formBuilder.group({
         id: [null],
         name: ['', Validators.required],
-        ra: ['', Validators.required]
+        department: ['', Validators.required],
+        is_active: [false]
       });
     }
+  }
+
+  getStudents() {
+    this.studentsServuce.getAll().subscribe({
+      next: res => this.students = res,
+      error: err => this.helperService.toast(err.message, 'warning')
+    });
+  }
+
+  onStudentsChange(event: any) {
+    event.detail.value.forEach(element => {
+      this.selectedStudents.push(element);
+    });
+  }
+
+  getProfessors() {
+    this.professorService.getAll().subscribe({
+      next: res => this.professors = res,
+      error: err => this.helperService.toast(err.message, 'warning')
+    });
+  }
+
+  onProfessorChange(event: any) {
+    this.selectedProfessorId = event.detail.value;
   }
 
   async insertDiscipline() {
@@ -48,28 +91,30 @@ export class DisciplineDialogComponent implements OnInit {
 
     this.helperService.loading('Cadastrando...');
 
+    const data = { ...this.disciplineForm.value, students: this.selectedStudents, teacher_id: this.selectedProfessorId };
+
     if (this.discipline?.name) {
-      this.disciplineService.update(this.disciplineForm.value).subscribe({
+      this.disciplineService.update(data).subscribe({
         next: response => {
           this.helperService.loading_dismiss();
           this.helperService.toast(response.message, 'success');
-          this.modalController.dismiss(this.disciplineForm.value);
+          this.modalController.dismiss(data);
         },
         error: err => {
           this.helperService.loading_dismiss();
-          this.helperService.toast('Erro ao atualizar aluno, verifique os dados informados', 'danger');
+          this.helperService.toast('Erro ao atualizar disciplina, verifique os dados informados', 'danger');
         }
       });
     } else {
-      this.disciplineService.insert(this.disciplineForm.value).subscribe({
+      this.disciplineService.insert(data).subscribe({
         next: response => {
           this.helperService.loading_dismiss();
           this.helperService.toast(response.message, 'success');
-          this.modalController.dismiss(this.disciplineForm.value);
+          this.modalController.dismiss(data);
         },
         error: err => {
           this.helperService.loading_dismiss();
-          this.helperService.toast('Erro ao cadastrar aluno, verifique os dados informados', 'danger');
+          this.helperService.toast('Erro ao cadastrar disciplina, verifique os dados informados', 'danger');
         }
       });
     }

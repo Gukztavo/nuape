@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthServiceService } from '../../services/auth-service.service';
+import { AuthService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../../services/helper.service';
 
@@ -14,7 +14,7 @@ export class ProfessorPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthServiceService,
+    private authService: AuthService,
     private router: Router,
     private helperService: HelperService
   ) {
