@@ -25,7 +25,7 @@ export class DisciplineService extends BaseService {
     }
 
     update(data: DisciplineModel): Observable<any> {
-        return this.http.put(`${this.api_url}/disciplinas/${data.name}`, data, { headers: this.get_tokens.headers });
+        return this.http.put(`${this.api_url}/disciplinas/${data.id}`, data, { headers: this.get_tokens.headers });
     }
 
     delete(disciplinaId: number): Observable<any> {

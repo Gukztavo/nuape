@@ -30,7 +30,7 @@ export class DisciplineDialogComponent implements OnInit {
     private disciplineService: DisciplineService,
     private helperService: HelperService,
     private modalController: ModalController,
-    private studentsServuce: StudentService,
+    private studentsService: StudentService,
     private professorService: ProfessorService
   ) { }
 
@@ -45,10 +45,6 @@ export class DisciplineDialogComponent implements OnInit {
         department: [this.discipline.department, Validators.required],
         is_active: [this.discipline.is_active]
       });
-
-      this.selectedProfessorId = this.discipline.teacher.id;
-      this.selectedStudents = this.discipline.students;
-
     } else {
       this.disciplineForm = this.formBuilder.group({
         id: [null],
@@ -60,8 +56,13 @@ export class DisciplineDialogComponent implements OnInit {
   }
 
   getStudents() {
-    this.studentsServuce.getAll().subscribe({
-      next: res => this.students = res,
+    this.studentsService.getAll().subscribe({
+      next: res => {
+        this.students = res;
+
+        if (this.discipline)
+          this.selectedStudents = this.students.filter(student => this.discipline.students.some(discStudent => discStudent.id == student.id));
+      },
       error: err => this.helperService.toast(err.message, 'warning')
     });
   }
@@ -74,7 +75,12 @@ export class DisciplineDialogComponent implements OnInit {
 
   getProfessors() {
     this.professorService.getAll().subscribe({
-      next: res => this.professors = res,
+      next: res => {
+        this.professors = res;
+
+        if (this.discipline)
+          this.selectedProfessorId = this.discipline.teacher.id;
+      },
       error: err => this.helperService.toast(err.message, 'warning')
     });
   }
