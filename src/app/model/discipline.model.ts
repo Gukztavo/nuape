@@ -2,7 +2,7 @@ import { StudentModel } from "./student.model";
 
 export interface DisciplineModel {
     id: number,
-    teacher_id: number,
+    teacher: any,
     name: string,
     department: string,
     is_active: boolean

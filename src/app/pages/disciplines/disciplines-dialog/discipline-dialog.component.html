@@ -28,7 +28,7 @@
 
     <ion-item lines="none">
       <ion-label>Professor(a)</ion-label>
-      <ion-select placeholder="Selecione o professor(a)" [value]="professors" (ionChange)="onProfessorChange($event)">
+      <ion-select placeholder="Selecione o professor(a)" [value]="selectedProfessorId" (ionChange)="onProfessorChange($event)">
         <ion-select-option *ngFor="let professor of professors" [value]="professor.id">
           {{ professor.name }}
         </ion-select-option>

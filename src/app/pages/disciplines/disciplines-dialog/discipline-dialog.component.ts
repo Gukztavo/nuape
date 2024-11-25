@@ -40,13 +40,13 @@ export class DisciplineDialogComponent implements OnInit {
 
     if (this.discipline) {
       this.disciplineForm = this.formBuilder.group({
-        id: [this.discipline.teacher_id],
+        id: [this.discipline.id],
         name: [this.discipline.name, Validators.required],
         department: [this.discipline.department, Validators.required],
         is_active: [this.discipline.is_active]
       });
 
-      this.selectedProfessorId = this.discipline.teacher_id;
+      this.selectedProfessorId = this.discipline.teacher.id;
       this.selectedStudents = this.discipline.students;
 
     } else {
