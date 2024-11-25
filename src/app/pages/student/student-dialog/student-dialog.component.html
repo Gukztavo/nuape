@@ -11,12 +11,12 @@
 
 <ion-content>
   <form [formGroup]="studentForm" (ngSubmit)="insertStudent()">
-    <ion-item>
+    <ion-item lines="none">
       <ion-label position="stacked">Nome</ion-label>
       <ion-input formControlName="name" required></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item lines="none">
       <ion-label position="stacked">R.A.</ion-label>
       <ion-input formControlName="ra" required></ion-input>
     </ion-item>

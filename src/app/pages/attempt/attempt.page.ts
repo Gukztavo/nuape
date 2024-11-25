@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-attempt',
@@ -15,7 +15,7 @@ export class AttemptPage implements OnInit {
     private menuController: MenuController,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: AuthServiceService
+    private userService: AuthService
   ) {
     this.urlOld = this.route.snapshot.paramMap.get('url');
   }
@@ -31,6 +31,7 @@ export class AttemptPage implements OnInit {
         (response) => {
           if (response) {
             this.userService.setUser(response.user, (response: boolean) => {
+              console.log("urlold", this.urlOld)
               if (this.urlOld == '' || this.urlOld == null) {
                 this.router.navigate(['/home']);
               } else {
@@ -44,7 +45,7 @@ export class AttemptPage implements OnInit {
         }
       );
     } else {
-      this.router.navigate(['login']);
+      this.router.navigate(['/login']);
     }
   }
 }

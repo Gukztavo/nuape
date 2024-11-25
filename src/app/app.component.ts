@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthServiceService } from './services/auth-service.service';
+import { AuthService } from './services/auth-service.service';
 import { AdminItems, TeacherItems } from './side-menu';
 
 @Component({
@@ -12,7 +12,7 @@ export class AppComponent implements OnDestroy {
   appPages: any[];
   private ngUnsubscriber = new Subject<void>();
 
-  constructor(private userService: AuthServiceService) {
+  constructor(private userService: AuthService) {
     this.buildMenu(true);
     this.userService.user_logged$
       .pipe(takeUntil(this.ngUnsubscriber))

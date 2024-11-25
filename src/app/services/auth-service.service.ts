@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthServiceService extends BaseService {
+export class AuthService extends BaseService {
   router: Router;
   user: User = null;
   user_logged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);

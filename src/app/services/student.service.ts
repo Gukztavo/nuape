@@ -2,8 +2,6 @@ import { Injectable, Injector } from "@angular/core";
 import { BaseService } from "./base.service";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { HttpHeaders } from "@angular/common/http";
-import { FileModel } from "../model/file.model";
 import { StudentModel } from "../model/student.model";
 
 @Injectable({
