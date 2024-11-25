@@ -50,8 +50,10 @@ export class DisciplineDialogComponent implements OnInit {
         id: [null],
         name: ['', Validators.required],
         department: ['', Validators.required],
-        is_active: [false]
+        is_active: [true]
       });
+
+      this.disciplineForm.controls['is_active'].disable();
     }
   }
 
@@ -99,7 +101,7 @@ export class DisciplineDialogComponent implements OnInit {
 
     const data = { ...this.disciplineForm.value, students: this.selectedStudents, teacher_id: this.selectedProfessorId };
 
-    if (this.discipline?.name) {
+    if (this.discipline?.id) {
       this.disciplineService.update(data).subscribe({
         next: response => {
           this.helperService.loading_dismiss();
