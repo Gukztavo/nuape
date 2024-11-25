@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ discipline ? 'Editar aluno' : 'Cadastrar aluno' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="secondary" (click)="closeModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="disciplineForm" (ngSubmit)="insertDiscipline()">
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input formControlName="name" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">R.A.</ion-label>
+      <ion-input formControlName="ra" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="disciplineForm.invalid">
+      {{ discipline ? 'Atualizar' : 'Cadastrar' }}
+    </ion-button>
+  </form>
+
+</ion-content>

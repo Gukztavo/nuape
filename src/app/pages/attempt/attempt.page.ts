@@ -31,6 +31,7 @@ export class AttemptPage implements OnInit {
         (response) => {
           if (response) {
             this.userService.setUser(response.user, (response: boolean) => {
+              console.log("urlold", this.urlOld)
               if (this.urlOld == '' || this.urlOld == null) {
                 this.router.navigate(['/home']);
               } else {

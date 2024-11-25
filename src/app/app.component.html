@@ -30,11 +30,15 @@
             </ion-item>
             <ion-item *ngIf="isAdmin()" button routerLink="/professor">
               <ion-icon aria-hidden="true" slot="start" name="person"></ion-icon>
-              <ion-label>Professor</ion-label>
+              <ion-label>Professores</ion-label>
             </ion-item>
-            <ion-item button routerLink="/student">
+            <ion-item *ngIf="isAdmin()" button routerLink="/student">
               <ion-icon aria-hidden="true" slot="start" name="person-circle-outline"></ion-icon>
-              <ion-label>Aluno</ion-label>
+              <ion-label>Alunos</ion-label>
+            </ion-item>
+            <ion-item *ngIf="isAdmin()" button routerLink="/discipline">
+              <ion-icon aria-hidden="true" slot="start" name="person-circle-outline"></ion-icon>
+              <ion-label>Disciplinas</ion-label>
             </ion-item>
             <ion-item button routerLinkActive="selected" (click)="logoff()">
               <ion-icon aria-hidden="true" slot="start" name="log-out"></ion-icon>

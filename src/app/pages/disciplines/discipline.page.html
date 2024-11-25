@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Disciplinas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="auto">
+        <ion-button color="primary" (click)="openDisciplineModal()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+          Nova disciplina
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <ion-item *ngFor="let discipline of disciplines">
+      <ion-label>
+        <h2>{{ discipline.name }}</h2>
+        <!-- <p>RA: {{ discipline.ra }}</p> -->
+      </ion-label>
+      <ion-buttons slot="end">
+        <!-- Edit Button -->
+        <ion-button color="primary" (click)="openDisciplineModal(discipline)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <!-- Delete Button -->
+        <ion-button color="danger" (click)="deleteDiscipline(discipline.teacher_id)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>
