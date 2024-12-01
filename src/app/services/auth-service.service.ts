@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService extends BaseService {
+export class  AuthService extends BaseService {
   router: Router;
   user: User = null;
   user_logged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -85,4 +85,11 @@ export class AuthService extends BaseService {
       callback(true);
     }
   }
+
+  getApiToken(): string {
+    const token = localStorage.getItem('nuapi-token');
+    console.log('Token recuperado do localStorage:', token);
+    return token;
+  }
+
 }
