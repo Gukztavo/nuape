@@ -40,7 +40,6 @@
       </table>
     </div>
 
-    <!-- Modal -->
     <div
       class="modal fade"
       id="peiModal"
@@ -122,19 +121,16 @@
 
     <script>
       function loadModalData(ra, aluno) {
-        // Atualiza o iframe com os parâmetros do aluno
         const iframe = document.getElementById("peiIframe");
         iframe.src = `https://utfpr.edu.br/pei?ra=${ra}&aluno=${encodeURIComponent(
           aluno
         )}`;
 
-        // Adiciona RA e Nome do aluno em atributos de dados para posterior salvamento
         document.getElementById("peiForm").setAttribute("data-ra", ra);
         document.getElementById("peiForm").setAttribute("data-aluno", aluno);
       }
 
       function saveData() {
-        // Coleta dados do formulário
         const form = document.getElementById("peiForm");
         const ra = form.getAttribute("data-ra");
         const aluno = form.getAttribute("data-aluno");
@@ -149,7 +145,6 @@
           return;
         }
 
-        // Simula o salvamento (pode ser substituído por uma requisição AJAX para backend)
         console.log("Salvando os dados:", {
           ra,
           aluno,
