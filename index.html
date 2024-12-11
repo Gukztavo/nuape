@@ -68,6 +68,32 @@
             ></iframe>
             <form id="peiForm" class="mt-3">
               <div class="mb-3">
+                <label for="aluboNome" class="form-label">Nome do Aluno</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="aluboNome"
+                  placeholder="Nome do aluno"
+                  value="Fulano da Silva"
+                  required
+                  disabled
+                  readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label for="alunoRA" class="form-label">RA do Aluno</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="alunoRA"
+                  placeholder="RA do aluno"
+                  value="1234"
+                  required
+                  disabled
+                  readonly
+                />
+              </div>
+              <div class="mb-3">
                 <label for="professorName" class="form-label"
                   >Nome do Professor</label
                 >
@@ -75,7 +101,7 @@
                   type="text"
                   class="form-control"
                   id="professorName"
-                  placeholder="Nome ou login do professor (@professores.utfpr.edu.br)"
+                  placeholder="Nome do professor"
                   required
                 />
               </div>
@@ -122,9 +148,7 @@
     <script>
       function loadModalData(ra, aluno) {
         const iframe = document.getElementById("peiIframe");
-        iframe.src = `https://utfpr.edu.br/pei?ra=${ra}&aluno=${encodeURIComponent(
-          aluno
-        )}`;
+        iframe.src = `https://pdfobject.com/pdf/sample.pdf`;
 
         document.getElementById("peiForm").setAttribute("data-ra", ra);
         document.getElementById("peiForm").setAttribute("data-aluno", aluno);
