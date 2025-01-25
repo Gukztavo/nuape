@@ -9,18 +9,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NAI/NUAPE - Sistema Acadêmico</title>
-    <link rel="icon" href="assets/nuape.png" type="image/png" />
+    <link rel="icon" href="assets/img/nuape.png" type="image/png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
 
   <body>
     <div class="container mt-5 text-center">
       <img
-        src="assets/logo.png"
+        src="assets/img/logo.png"
         alt="Logo UTFPR"
         class="img-fluid"
         style="max-width: 300px; margin-bottom: 20px"
