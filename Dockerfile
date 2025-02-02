@@ -1,5 +1,7 @@
 FROM php:8.4.3-fpm AS base
 
+RUN chown -R www-data:www-data /var/www
+
 WORKDIR /var/www
 
 ENV PHP_OPCACHE_ENABLE="0" \
@@ -30,3 +32,5 @@ RUN docker-php-ext-install mbstring exif pcntl bcmath sockets opcache pdo
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 COPY docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY docker/php/conf.d/realpath.ini /usr/local/etc/php/conf.d/realpath.ini
+
+USER www-data

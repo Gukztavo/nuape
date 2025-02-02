@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types = 1); 
+
 namespace Nuape\Helper;
 use PDO;
 
 class TypeMatcher
 {
-    public static function match($value): int 
+    public static function match(mixed $value): int 
     {
-        if(strtotime($value))
+        if(strtotime((string) $value))
         {
             return PDO::PARAM_STR;
         }
