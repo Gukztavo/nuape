@@ -18,7 +18,9 @@
                           ELSE 'Não' 
                         END as acknowledged
                  , confirmation_date 
-                 from confirmations";
+                 from confirmations
+                 order by confirmation_date desc
+                 limit 50";
 
   $rows = Database::queryAll($sql,[]);
 
